@@ -510,9 +510,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 31.95
-    #define DEFAULT_Ki 4.17
-    #define DEFAULT_Kd 61.24
+    #define DEFAULT_Kp 14.0
+    #define DEFAULT_Ki 0.5
+    #define DEFAULT_Kd 125.0
   #endif
 #endif // PIDTEMP
 
@@ -1585,8 +1585,8 @@
   #define Z_SAFE_HOMING_Y_POINT Y_BED_SIZE/2 // Y point for Z homing
 #endif
 
-#define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (4*60)
+#define HOMING_FEEDRATE_XY (140*60)
+#define HOMING_FEEDRATE_Z  (8*60)
 
 // Homing speeds (mm/min)
 #define HOMING_FEEDRATE_MM_M { HOMING_FEEDRATE_XY, HOMING_FEEDRATE_XY, HOMING_FEEDRATE_Z }
