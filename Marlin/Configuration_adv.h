@@ -972,6 +972,9 @@
   #define BACKLASH_DISTANCE_MM { 0, 0, 0 } // (mm)
   #define BACKLASH_CORRECTION    0.0       // 0.0 = no correction; 1.0 = full correction
 
+  // Add steps for motor direction changes on CORE kinematics
+  //#define CORE_BACKLASH
+
   // Set BACKLASH_SMOOTHING_MM to spread backlash correction over multiple segments
   // to reduce print artifacts. (Enabling this is costly in memory and computation!)
   //#define BACKLASH_SMOOTHING_MM 3 // (mm)
@@ -1487,6 +1490,18 @@
     #define DEFAULT_SHARED_VOLUME USB_FLASH_DRIVE
   #endif
 
+  // Enable if SD detect is rendered useless (e.g., by using an SD extender)
+  //#define NO_SD_DETECT
+
+  // Multiple volume support - EXPERIMENTAL.
+  //#define MULTI_VOLUME
+  #if ENABLED(MULTI_VOLUME)
+    #define VOLUME_SD_ONBOARD
+    #define VOLUME_USB_FLASH_DRIVE
+    #define DEFAULT_VOLUME SD_ONBOARD
+    #define DEFAULT_SHARED_VOLUME USB_FLASH_DRIVE
+  #endif
+
 #endif // SDSUPPORT
 
 /**
@@ -1888,6 +1903,10 @@
   #define MESH_MIN_Y 10
   #define MESH_MAX_X X_BED_SIZE - 5
   #define MESH_MAX_Y Y_BED_SIZE - 5
+#endif
+
+#if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
+  //#define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
 #endif
 
 #if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
@@ -2836,7 +2855,7 @@
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
-   * M122 S0/1 will enable continous reporting.
+   * M122 S0/1 will enable continuous reporting.
    */
   #define TMC_DEBUG
 
@@ -3157,6 +3176,12 @@
 
   #define SPINDLE_LASER_FREQUENCY       2500   // (Hz) Spindle/laser frequency (only on supported HALs: AVR and LPC)
 
+  //#define AIR_EVACUATION                     // Cutter Vacuum / Laser Blower motor control with G-codes M10-M11
+  #if ENABLED(AIR_EVACUATION)
+    #define AIR_EVACUATION_ACTIVE       LOW    // Set to "HIGH" if the on/off function is active HIGH
+    #define AIR_EVACUATION_PIN          42     // Override the default Cutter Vacuum or Laser Blower pin
+  #endif
+
   //#define SPINDLE_SERVO         // A servo converting an angle to spindle power
   #ifdef SPINDLE_SERVO
     #define SPINDLE_SERVO_NR   0  // Index of servo used for spindle control
@@ -3376,6 +3401,15 @@
 #endif
 
 /**
+ * Stepper Driver Anti-SNAFU Protection
+ *
+ * If the SAFE_POWER_PIN is defined for your board, Marlin will check
+ * that stepper drivers are properly plugged in before applying power.
+ * Disable protection if your stepper drivers don't support the feature.
+ */
+//#define DISABLE_DRIVER_SAFE_POWER_PROTECT
+
+/**
  * CNC Coordinate Systems
  *
  * Enables G53 and G54-G59.3 commands to select coordinate systems
@@ -3466,6 +3500,11 @@
 #endif
 
 #define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
+// Support for MeatPack G-code compression (https://github.com/scottmudge/OctoPrint-MeatPack)
+//#define MEATPACK_ON_SERIAL_PORT_1
+//#define MEATPACK_ON_SERIAL_PORT_2
+
+//#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
 
 //#define REPETIER_GCODE_M360     // Add commands originally from Repetier FW
 
@@ -3535,6 +3574,96 @@
   #define USER_DESC_5 "Home & Info"
   #define USER_GCODE_5 "G28\nM503"
   //#define USER_CONFIRM_5
+
+// Custom Menu: Main Menu
+//#define CUSTOM_MENU_MAIN
+#if ENABLED(CUSTOM_MENU_MAIN)
+  //#define CUSTOM_MENU_MAIN_TITLE "Custom Commands"
+  #define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
+  #define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
+  //#define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
+  #define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
+
+  #define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
+  #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
+  //#define MAIN_MENU_ITEM_1_CONFIRM          // Show a confirmation dialog before this action
+
+  #define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+  //#define MAIN_MENU_ITEM_2_CONFIRM
+
+  //#define MAIN_MENU_ITEM_3_DESC "Preheat for " PREHEAT_2_LABEL
+  //#define MAIN_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+  //#define MAIN_MENU_ITEM_3_CONFIRM
+
+  //#define MAIN_MENU_ITEM_4_DESC "Heat Bed/Home/Level"
+  //#define MAIN_MENU_ITEM_4_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
+  //#define MAIN_MENU_ITEM_4_CONFIRM
+
+  //#define MAIN_MENU_ITEM_5_DESC "Home & Info"
+  //#define MAIN_MENU_ITEM_5_GCODE "G28\nM503"
+  //#define MAIN_MENU_ITEM_5_CONFIRM
+#endif
+
+// Custom Menu: Configuration Menu
+//#define CUSTOM_MENU_CONFIG
+#if ENABLED(CUSTOM_MENU_CONFIG)
+  //#define CUSTOM_MENU_CONFIG_TITLE "Custom Commands"
+  #define CUSTOM_MENU_CONFIG_SCRIPT_DONE "M117 Wireless Script Done"
+  #define CUSTOM_MENU_CONFIG_SCRIPT_AUDIBLE_FEEDBACK
+  //#define CUSTOM_MENU_CONFIG_SCRIPT_RETURN  // Return to status screen after a script
+  #define CUSTOM_MENU_CONFIG_ONLY_IDLE        // Only show custom menu when the machine is idle
+
+  #define CONFIG_MENU_ITEM_1_DESC "Wifi ON"
+  #define CONFIG_MENU_ITEM_1_GCODE "M118 [ESP110] WIFI-STA pwd=12345678"
+  //#define CONFIG_MENU_ITEM_1_CONFIRM        // Show a confirmation dialog before this action
+
+  #define CONFIG_MENU_ITEM_2_DESC "Bluetooth ON"
+  #define CONFIG_MENU_ITEM_2_GCODE "M118 [ESP110] BT pwd=12345678"
+  //#define CONFIG_MENU_ITEM_2_CONFIRM
+
+  //#define CONFIG_MENU_ITEM_3_DESC "Radio OFF"
+  //#define CONFIG_MENU_ITEM_3_GCODE "M118 [ESP110] OFF pwd=12345678"
+  //#define CONFIG_MENU_ITEM_3_CONFIRM
+
+  //#define CONFIG_MENU_ITEM_4_DESC "Wifi ????"
+  //#define CONFIG_MENU_ITEM_4_GCODE "M118 ????"
+  //#define CONFIG_MENU_ITEM_4_CONFIRM
+
+  //#define CONFIG_MENU_ITEM_5_DESC "Wifi ????"
+  //#define CONFIG_MENU_ITEM_5_GCODE "M118 ????"
+  //#define CONFIG_MENU_ITEM_5_CONFIRM
+#endif
+
+/**
+ * User-defined buttons to run custom G-code.
+ * Up to 25 may be defined.
+ */
+//#define CUSTOM_USER_BUTTONS
+#if ENABLED(CUSTOM_USER_BUTTONS)
+  //#define BUTTON1_PIN -1
+  #if PIN_EXISTS(BUTTON1)
+    #define BUTTON1_HIT_STATE     LOW       // State of the triggered button. NC=LOW. NO=HIGH.
+    #define BUTTON1_WHEN_PRINTING false     // Button allowed to trigger during printing?
+    #define BUTTON1_GCODE         "G28"
+    #define BUTTON1_DESC          "Homing"  // Optional string to set the LCD status
+  #endif
+
+  //#define BUTTON2_PIN -1
+  #if PIN_EXISTS(BUTTON2)
+    #define BUTTON2_HIT_STATE     LOW
+    #define BUTTON2_WHEN_PRINTING false
+    #define BUTTON2_GCODE         "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+    #define BUTTON2_DESC          "Preheat for " PREHEAT_1_LABEL
+  #endif
+
+  //#define BUTTON3_PIN -1
+  #if PIN_EXISTS(BUTTON3)
+    #define BUTTON3_HIT_STATE     LOW
+    #define BUTTON3_WHEN_PRINTING false
+    #define BUTTON3_GCODE         "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+    #define BUTTON3_DESC          "Preheat for " PREHEAT_2_LABEL
+  #endif
 #endif
 
 /**
@@ -3563,6 +3692,9 @@
  * Implement M486 to allow Marlin to skip objects
  */
 //#define CANCEL_OBJECTS
+#if ENABLED(CANCEL_OBJECTS)
+  #define CANCEL_OBJECTS_REPORTING // Emit the current object as a status message
+#endif
 
 /**
  * I2C position encoders for closed loop control.
@@ -3901,3 +4033,9 @@
  * a crash from a remote location. Requires ~400 bytes of SRAM and 5Kb of flash.
  */
 //#define POSTMORTEM_DEBUGGING
+
+/**
+ * Software Reset options
+ */
+//#define SOFT_RESET_VIA_SERIAL         // 'KILL' and '^X' commands will soft-reset the controller
+//#define SOFT_RESET_ON_KILL            // Use a digital button to soft-reset the controller after KILL
