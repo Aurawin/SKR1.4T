@@ -3546,62 +3546,35 @@
  * User-defined menu items to run custom G-code.
  * Up to 25 may be defined, but the actual number is LCD-dependent.
  */
-#define CUSTOM_USER_MENUS
-#if ENABLED(CUSTOM_USER_MENUS)
-  #define CUSTOM_USER_MENU_TITLE "Initialization"
-  #define USER_SCRIPT_DONE "M117 User Script Done"
-  #define USER_SCRIPT_AUDIBLE_FEEDBACK
-  #define USER_SCRIPT_RETURN  // Return to status screen after a script
-  #define CUSTOM_MENU_ONLY_IDLE   // Only show custom menu when the machine is idle
-
-  #define USER_DESC_1 "Initialize for " PREHEAT_1_LABEL
-  #define USER_GCODE_1 "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
-  //#define USER_CONFIRM_1        // Show a confirmation dialog before this action
-
-  #define USER_DESC_2 "Initialize for " PREHEAT_2_LABEL
-  #define USER_GCODE_2 "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
-  //#define USER_CONFIRM_2
-
-  #define USER_DESC_3 "Initialize for " PREHEAT_3_LABEL
-  #define USER_GCODE_3 "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_3_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_3_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_3_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
-  //#define USER_CONFIRM_3
-  
-
-  #define USER_DESC_4 "Heat Bed/Home/Level"
-  #define USER_GCODE_4 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
-  //#define USER_CONFIRM_4
-
-  #define USER_DESC_5 "Home & Info"
-  #define USER_GCODE_5 "G28\nM503"
-  //#define USER_CONFIRM_5
 
 // Custom Menu: Main Menu
-//#define CUSTOM_MENU_MAIN
+#define CUSTOM_MENU_MAIN
 #if ENABLED(CUSTOM_MENU_MAIN)
-  //#define CUSTOM_MENU_MAIN_TITLE "Custom Commands"
+  #define CUSTOM_MENU_MAIN_TITLE "Initialization"
   #define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
   #define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
-  //#define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
-  #define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
+  #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
+  #define CUSTOM_MENU_ONLY_IDLE            // Only show custom menu when the machine is idle
+  #define CUSTOM_MENU_MAIN_ONLY_IDLE       // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
-  #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
-  //#define MAIN_MENU_ITEM_1_CONFIRM          // Show a confirmation dialog before this action
-
-  #define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+  #define MAIN_MENU_ITEM_1_DESC "Initialize for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_1_GCODE "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
+  //#define MAIN_MENU_ITEM_1_CONFIRM        // Show a confirmation dialog before this action
+ 
+  #define MAIN_MENU_ITEM_2_DESC "Initialize for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_2_GCODE "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
   //#define MAIN_MENU_ITEM_2_CONFIRM
 
-  //#define MAIN_MENU_ITEM_3_DESC "Preheat for " PREHEAT_2_LABEL
-  //#define MAIN_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+  #define MAIN_MENU_ITEM_3_DESC "Initialize for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_3_GCODE "M106 P0 S0 \n M140 S" STRINGIFY(PREHEAT_3_TEMP_BED) "\n M109 S" STRINGIFY(PREHEAT_3_TEMP_HOTEND) "\n M190 S" STRINGIFY(PREHEAT_3_TEMP_BED) "\n G28 \n G1 X0 Y-16 Z12 \n G34 \n G29 \n M500 \n M77"
   //#define MAIN_MENU_ITEM_3_CONFIRM
 
-  //#define MAIN_MENU_ITEM_4_DESC "Heat Bed/Home/Level"
-  //#define MAIN_MENU_ITEM_4_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
+  #define MAIN_MENU_ITEM_4_DESC "Heat Bed/Home/Level"
+  #define MAIN_MENU_ITEM_4_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
   //#define MAIN_MENU_ITEM_4_CONFIRM
 
-  //#define MAIN_MENU_ITEM_5_DESC "Home & Info"
-  //#define MAIN_MENU_ITEM_5_GCODE "G28\nM503"
+  #define MAIN_MENU_ITEM_5_DESC "Home & Info"
+  #define MAIN_MENU_ITEM_5_GCODE "G28\nM503"
   //#define MAIN_MENU_ITEM_5_CONFIRM
 #endif
 
