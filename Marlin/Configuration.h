@@ -799,7 +799,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 170.0 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 180.0 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1596,7 +1596,7 @@
   #define Z_SAFE_HOMING_Y_POINT Y_BED_SIZE/2 // Y point for Z homing
 #endif
 
-#define HOMING_FEEDRATE_XY (140*60)
+#define HOMING_FEEDRATE_XY (130*60)
 #define HOMING_FEEDRATE_Z  (8*60)
 
 // Homing speeds (mm/min)
