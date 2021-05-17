@@ -411,14 +411,14 @@
 
 // The number of consecutive low temperature errors that can occur
 // before a min_temp_error is triggered. (Shouldn't be more than 10.)
-#define MAX_CONSECUTIVE_LOW_TEMPERATURE_ERROR_ALLOWED 5
+#define MAX_CONSECUTIVE_LOW_TEMPERATURE_ERROR_ALLOWED 10
 
 // The number of milliseconds a hotend will preheat before starting to check
 // the temperature. This value should NOT be set to the time it takes the
 // hot end to reach the target temperature, but the time it takes to reach
 // the minimum temperature your thermistor can read. The lower the better/safer.
 // This shouldn't need to be more than 30 seconds (30000)
-#define MILLISECONDS_PREHEAT_TIME 300000
+#define MILLISECONDS_PREHEAT_TIME 400000
 
 // @section extruder
 
@@ -2498,7 +2498,7 @@
  */
 #if HAS_TRINAMIC_CONFIG
 
-  #define HOLD_MULTIPLIER    0.75  // Scales down the holding current from run current
+  #define HOLD_MULTIPLIER    0.8   // Scales down the holding current from run current
   #define INTERPOLATE       false  // Interpolate X/Y/Z_MICROSTEPS to 256
   #define RSENSE_XY          0.11  // Stepper's max current 1A 0.22 -> 1.2A=0.18
   #define RSENSE_PANCAKE     0.07  // Stepper's max current 0.850A ~ 0.07  
@@ -2506,7 +2506,7 @@
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  500        // (mA) RMS current for sensorless homing
+    #define X_CURRENT_HOME  600        // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     32        // 0..256
     #define X_RSENSE        RSENSE_XY     // Resistance Bias Factor for current limitations
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
@@ -2524,7 +2524,7 @@
 
   #if AXIS_IS_TMC(Y)
     #define Y_CURRENT       800
-    #define Y_CURRENT_HOME  500
+    #define Y_CURRENT_HOME  750
     #define Y_MICROSTEPS     32
     #define Y_RSENSE          RSENSE_XY
     #define Y_CHAIN_POS      -1
@@ -2542,11 +2542,11 @@
 
   #if AXIS_IS_TMC(Z)
     #define Z_CURRENT       890
-    #define Z_CURRENT_HOME  980
+    #define Z_CURRENT_HOME  1000
     #define Z_MICROSTEPS     2
     #define Z_RSENSE        RSENSE_Z
     #define Z_CHAIN_POS      -1
-    #define Z_INTERPOLATE  false
+    #define Z_INTERPOLATE  true
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2555,7 +2555,7 @@
     #define Z2_MICROSTEPS    Z_MICROSTEPS
     #define Z2_RSENSE        RSENSE_Z
     #define Z2_CHAIN_POS     -1
-    #define Z2_INTERPOLATE false
+    #define Z2_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(Z3)
