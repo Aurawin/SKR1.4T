@@ -829,9 +829,9 @@
  */
 #define DEFAULT_MAX_ACCELERATION      { 3000, 2200, 100, 2000 }
 
-//#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
+#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 3500, 3500, 200, 8000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -1058,7 +1058,7 @@
  */
 #define NOZZLE_OFFSET_X 26.3
 #define NOZZLE_OFFSET_Y 9.8
-#define NOZZLE_OFFSET_Z -1.2
+#define NOZZLE_OFFSET_Z -1.0
 #define NOZZLE_ALIGN_Z_AXIS_Y 200 // Position of Y axis where we will align Z-Axis
 #define NOZZLE_TO_PROBE_OFFSET { NOZZLE_OFFSET_X, NOZZLE_OFFSET_Y, NOZZLE_OFFSET_Z }
 
@@ -1721,7 +1721,7 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "ABS"
-#define PREHEAT_1_TEMP_HOTEND 254
+#define PREHEAT_1_TEMP_HOTEND 245
 #define PREHEAT_1_TEMP_BED     110
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
