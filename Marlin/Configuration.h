@@ -896,7 +896,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 180.0 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 185.0 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1148,8 +1148,8 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_OFFSET_X 26.3
-#define NOZZLE_OFFSET_Y 9.8
+#define NOZZLE_OFFSET_X 29.3
+#define NOZZLE_OFFSET_Y 10
 #define NOZZLE_OFFSET_Z -1.0
 #define NOZZLE_ALIGN_Z_AXIS_Y 200 // Position of Y axis where we will align Z-Axis
 #define NOZZLE_TO_PROBE_OFFSET { NOZZLE_OFFSET_X, NOZZLE_OFFSET_Y, NOZZLE_OFFSET_Z }
@@ -1162,7 +1162,7 @@
 #define XY_PROBE_FEEDRATE (133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (5*60)
+#define Z_PROBE_FEEDRATE_FAST (6*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1220,7 +1220,7 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_DEPLOY_PROBE    10 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     2 // Z Clearance between multiple probes
 #define Z_AFTER_PROBING             25 // Z position after probing is done
