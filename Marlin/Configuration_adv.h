@@ -751,13 +751,13 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#define SENSORLESS_BACKOFF_MM  { 10, 10, 10 }  // (mm) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM  { 0, 0, 10 }  // (mm) Backoff from endstops before sensorless homing
 
 #define HOMING_BUMP_MM      { 0, 0, 3 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 1, 1, 2 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-#define HOMING_BACKOFF_POST_MM { 10, 10, 10 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 0, 10, 10 }  // (mm) Backoff from endstops after homing
 
-#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
@@ -885,7 +885,7 @@
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE              10    // (%) Maximum incline that G34 will handle
   #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
-  #define Z_STEPPER_ALIGN_ACC        0.02 // Stop iterating early if the accuracy is better than this
+  #define Z_STEPPER_ALIGN_ACC        0.05 // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
   // Re-homing might be more precise in reproducing the actual 'G28 Z' homing height, especially on an uneven bed.
@@ -1103,7 +1103,7 @@
 //#define MICROSTEP32 HIGH,LOW,HIGH
 
 // Microstep settings (Requires a board with pins named X_MS1, X_MS2, etc.)
-#define MICROSTEP_MODES { 16, 16, 16, 16, 16, 16 } // [1,2,4,8,16]
+//#define MICROSTEP_MODES { 16, 16, 16, 16, 16, 16 } // [1,2,4,8,16]
 
 /**
  *  @section  stepper motor current
@@ -2068,7 +2068,7 @@
 #endif
 
 // Moves (or segments) with fewer steps than this will be joined with the next move
-#define MIN_STEPS_PER_SEGMENT 3
+#define MIN_STEPS_PER_SEGMENT 1
 
 /**
  * Minimum delay before and after setting the stepper DIR (in ns)
@@ -2560,8 +2560,8 @@
   #define RSENSE_Z           0.10  // Add addtional bias for the dual z steppers
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       670        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  550        // (mA) RMS current for sensorless homing
+    #define X_CURRENT       660        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  720        // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     32        // 0..256
     #define X_RSENSE        RSENSE_XY     // Resistance Bias Factor for current limitations
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
@@ -2578,8 +2578,8 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       670
-    #define Y_CURRENT_HOME  550
+    #define Y_CURRENT       660
+    #define Y_CURRENT_HOME  720
     #define Y_MICROSTEPS     32
     #define Y_RSENSE          RSENSE_XY
     #define Y_CHAIN_POS      -1
@@ -2659,8 +2659,8 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      550
-    #define E0_MICROSTEPS    8
+    #define E0_CURRENT      590
+    #define E0_MICROSTEPS    16
     #define E0_RSENSE         RSENSE_PANCAKE
     #define E0_CHAIN_POS     -1
     #define E0_INTERPOLATE false
@@ -2804,6 +2804,7 @@
   #define STEALTHCHOP_XY
   //#define STEALTHCHOP_E
   #define STEALTHCHOP_Z
+  #define STEALTHCHOP_Z2
   //#define STEALTHCHOP_I
   //#define STEALTHCHOP_J
   //#define STEALTHCHOP_K
@@ -2871,24 +2872,24 @@
   //#define HYBRID_THRESHOLD
 
   #define X_HYBRID_THRESHOLD     100  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    100
+  //#define X2_HYBRID_THRESHOLD    100
   #define Y_HYBRID_THRESHOLD     100
-  #define Y2_HYBRID_THRESHOLD    100
+  //#define Y2_HYBRID_THRESHOLD    100
   #define Z_HYBRID_THRESHOLD       3
   #define Z2_HYBRID_THRESHOLD      3
-  #define Z3_HYBRID_THRESHOLD      3
-  #define Z4_HYBRID_THRESHOLD      3
-  #define I_HYBRID_THRESHOLD       3
-  #define J_HYBRID_THRESHOLD       3
-  #define K_HYBRID_THRESHOLD       3
+  //#define Z3_HYBRID_THRESHOLD      3
+  //#define Z4_HYBRID_THRESHOLD      3
+  //#define I_HYBRID_THRESHOLD       3
+  //#define J_HYBRID_THRESHOLD       3
+  //#define K_HYBRID_THRESHOLD       3
   #define E0_HYBRID_THRESHOLD     30
-  #define E1_HYBRID_THRESHOLD     30
-  #define E2_HYBRID_THRESHOLD     30
-  #define E3_HYBRID_THRESHOLD     30
-  #define E4_HYBRID_THRESHOLD     30
-  #define E5_HYBRID_THRESHOLD     30
-  #define E6_HYBRID_THRESHOLD     30
-  #define E7_HYBRID_THRESHOLD     30
+  //#define E1_HYBRID_THRESHOLD     30
+  //#define E2_HYBRID_THRESHOLD     30
+  //#define E3_HYBRID_THRESHOLD     30
+  //#define E4_HYBRID_THRESHOLD     30
+  //#define E5_HYBRID_THRESHOLD     30
+  //#define E6_HYBRID_THRESHOLD     30
+  //#define E7_HYBRID_THRESHOLD     30
 
   /**
    * Use StallGuard to home / probe X, Y, Z.
@@ -2919,9 +2920,9 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  44
+    #define X_STALL_SENSITIVITY  50
     //#define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  44
+    #define Y_STALL_SENSITIVITY  50
     //#define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -3598,9 +3599,9 @@
    * M200 D0 to disable, M200 Dn to set a new diameter (and enable volumetric).
    * M200 S0/S1 to disable/enable volumetric extrusion.
    */
-  //#define VOLUMETRIC_DEFAULT_ON
+  #define VOLUMETRIC_DEFAULT_ON
 
-  //#define VOLUMETRIC_EXTRUDER_LIMIT
+  #define VOLUMETRIC_EXTRUDER_LIMIT
   #if ENABLED(VOLUMETRIC_EXTRUDER_LIMIT)
     /**
      * Default volumetric extrusion limit in cubic mm per second (mm^3/sec).
@@ -3608,7 +3609,7 @@
      * Use 'M200 [T<extruder>] L<limit>' to override and 'M502' to reset.
      * A non-zero value activates Volume-based Extrusion Limiting.
      */
-    #define DEFAULT_VOLUMETRIC_EXTRUDER_LIMIT 0.00      // (mm^3/sec)
+    #define DEFAULT_VOLUMETRIC_EXTRUDER_LIMIT 4.00      // (mm^3/sec)
   #endif
 #endif
 
@@ -3622,11 +3623,11 @@
 //#define NO_WORKSPACE_OFFSETS
 
 // Extra options for the M114 "Current Position" report
-//#define M114_DETAIL         // Use 'M114` for details to check planner calculations
-//#define M114_REALTIME       // Real current position based on forward kinematics
-//#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
+#define M114_DETAIL         // Use 'M114` for details to check planner calculations
+#define M114_REALTIME       // Real current position based on forward kinematics
+#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
 
-//#define REPORT_FAN_CHANGE   // Report the new fan speed when changed by M106 (and others)
+#define REPORT_FAN_CHANGE   // Report the new fan speed when changed by M106 (and others)
 
 /**
  * Set the number of proportional font spaces required to fill up a typical character space.

@@ -835,7 +835,7 @@
 #define Z_DRIVER_TYPE  TMC2209
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
-//#define Z2_DRIVER_TYPE A4988
+#define Z2_DRIVER_TYPE TMC2209
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
 //#define I_DRIVER_TYPE  A4988
@@ -896,7 +896,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 185.0 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 161.8, 161.8, 50.0, 435.0 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -916,11 +916,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 2200, 100, 2000 }
+#define DEFAULT_MAX_ACCELERATION      { 3000, 2200, 100, 1000 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 3500, 3500, 200, 8000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 3500, 3500, 200, 1000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -932,7 +932,7 @@
  *   M204 T    Travel Acceleration
  */
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
+#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
@@ -1150,7 +1150,7 @@
  */
 #define NOZZLE_OFFSET_X 29.3
 #define NOZZLE_OFFSET_Y 10
-#define NOZZLE_OFFSET_Z -1.0
+#define NOZZLE_OFFSET_Z -0.85
 #define NOZZLE_ALIGN_Z_AXIS_Y 200 // Position of Y axis where we will align Z-Axis
 #define NOZZLE_TO_PROBE_OFFSET { NOZZLE_OFFSET_X, NOZZLE_OFFSET_Y, NOZZLE_OFFSET_Z }
 
@@ -1719,7 +1719,7 @@
   #define Z_SAFE_HOMING_Y_POINT Y_BED_SIZE/2 // Y point for Z homing
 #endif
 
-#define HOMING_FEEDRATE_XY (130*60)
+#define HOMING_FEEDRATE_XY (100*60)
 #define HOMING_FEEDRATE_Z  (8*60)
 
 // Homing speeds (mm/min)
@@ -1834,15 +1834,15 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "ABS"
-#define PREHEAT_1_TEMP_HOTEND 245
+#define PREHEAT_1_TEMP_HOTEND  248
 #define PREHEAT_1_TEMP_BED     110
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG"
-#define PREHEAT_2_TEMP_HOTEND 252
+#define PREHEAT_2_TEMP_HOTEND 248
 #define PREHEAT_2_TEMP_CHAMBER 35
-#define PREHEAT_2_TEMP_BED    70
+#define PREHEAT_2_TEMP_BED    90
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_3_LABEL       "PC"
