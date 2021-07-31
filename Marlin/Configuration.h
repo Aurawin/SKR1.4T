@@ -916,11 +916,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 2200, 100, 1000 }
+#define DEFAULT_MAX_ACCELERATION      { 3000, 2200, 100, 8000 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 3500, 3500, 200, 1000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 3500, 3500, 200, 8000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -932,7 +932,7 @@
  *   M204 T    Travel Acceleration
  */
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+#define DEFAULT_RETRACT_ACCELERATION  8000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
@@ -960,7 +960,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    20.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    10.0  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1150,7 +1150,7 @@
  */
 #define NOZZLE_OFFSET_X 29.3
 #define NOZZLE_OFFSET_Y 10
-#define NOZZLE_OFFSET_Z -0.85
+#define NOZZLE_OFFSET_Z -0.64
 #define NOZZLE_ALIGN_Z_AXIS_Y 200 // Position of Y axis where we will align Z-Axis
 #define NOZZLE_TO_PROBE_OFFSET { NOZZLE_OFFSET_X, NOZZLE_OFFSET_Y, NOZZLE_OFFSET_Z }
 
